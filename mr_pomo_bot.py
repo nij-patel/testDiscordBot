@@ -3,25 +3,41 @@
 from dotenv import load_dotenv
 import os
 import discord
+import asyncio
 from discord.ext import commands
 
 load_dotenv()
 
 intents = discord.Intents.default()
 
-#client = discord.Client(intents=intents)
+# client = discord.Client(intents=intents)
 bot = commands.Bot(command_prefix='!')
 
-#@client.event
+# @client.event
+
+
 @bot.event
 async def on_ready():
     print('We have logged in as {}'.format(bot.user))
 
 
-#@client.event
+# @client.event
 @bot.command(name="start", help="Starts a Pomodoro timer")
 async def start_timer(ctx):
-    await ctx.send("Time to work!")
+    start_work_em = discord.Embed(
+        title="Time to start working!", color=0x33c633)
+    await ctx.send(embed=start_work_em)
+    await asyncio.sleep(5)
+    start_play_em = discord.Embed(
+        title="Time to start your break!", color=0x33c633)
+    await ctx.send(emded=start_play_em)
+
+
+@bot.command(name="stop", help="Stop a Pomodoro timer")
+async def stop_timer(ctx):
+    stop_timer_em = discord.Embed(
+        title="Timer has been stopped!", color=0xc63333)
+    await ctx.send(embed=stop_timer_em)
 
 
 #    if message.author == client.user:
@@ -30,5 +46,5 @@ async def start_timer(ctx):
 #    if message.content.startswith('$hello'):
 #        await message.channel.send('Hello!')
 
-#client.run(os.environ['BOT_TOKEN'])
+# client.run(os.environ['BOT_TOKEN'])
 bot.run(os.environ['BOT_TOKEN'])
