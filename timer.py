@@ -11,7 +11,7 @@ class Timer:
     def stop(self):
         self.running = False
 
-    def get_status(self):
+    def is_running(self):
         return self.running
 
     def get_ticks(self):
